@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
+  final accentColor = const Color(0xFFE73700);
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -25,7 +26,7 @@ class BottomNavBar extends StatelessWidget {
       currentIndex: 0,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Colors.grey[500],
-      selectedItemColor: Colors.amber[800],
+      selectedItemColor: accentColor,
       showUnselectedLabels: true,
     );
   }
