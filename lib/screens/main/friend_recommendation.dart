@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/bottom_nav_bar.dart';
 import 'package:kai_friends_app/widgets/color_chip.dart';
 
 void main() {
@@ -29,10 +30,14 @@ class MyApp extends StatelessWidget {
                 height: 20.0,
               ),
               FriendPreferences(),
-//              FriendDecisionButtons(),
+              SizedBox(
+                height: 30.0,
+              ),
+              FriendDecisionButtons(),
             ],
           ),
         ),
+        bottomNavigationBar: BottomNavBar(),
       ),
     );
   }
@@ -46,14 +51,13 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-//            mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        CircleAvatar(
-          radius: 100.0,
+        const CircleAvatar(
+          radius: 70.0,
           backgroundColor: Colors.blue,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20.0,
         ),
         Text(
@@ -65,7 +69,7 @@ class Profile extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
         Text(
@@ -95,20 +99,20 @@ class FriendPreferences extends StatelessWidget {
               color: Colors.grey[700],
             ),
           ),
-          SizedBox(height: 10),
-          FriendPreference(
+          const SizedBox(height: 10),
+          const FriendPreference(
             category: '멘토링',
           ),
-          SizedBox(height: 5),
-          FriendPreference(
+          const SizedBox(height: 5),
+          const FriendPreference(
             category: '과친구',
           ),
-          SizedBox(height: 5),
-          FriendPreference(
+          const SizedBox(height: 5),
+          const FriendPreference(
             category: '수업친구',
           ),
-          SizedBox(height: 5),
-          FriendPreference(
+          const SizedBox(height: 5),
+          const FriendPreference(
             category: '관심분야',
           ),
         ],
@@ -135,7 +139,7 @@ class FriendPreference extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10.0,
         ),
         Wrap(
@@ -150,6 +154,44 @@ class FriendPreference extends StatelessWidget {
             ColorChip(),
           ],
         )
+      ],
+    );
+  }
+}
+
+class FriendDecisionButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        IconButton(
+          iconSize: 50,
+          icon: const Icon(
+            Icons.clear,
+            color: Color(0xFFE73700),
+          ),
+          tooltip: '아니요',
+          onPressed: () {},
+        ),
+        IconButton(
+          iconSize: 50,
+          icon: const Icon(
+            Icons.autorenew,
+            color: Color(0xFFE73700),
+          ),
+          tooltip: '패스할래요',
+          onPressed: () {},
+        ),
+        IconButton(
+          iconSize: 50,
+          icon: const Icon(
+            Icons.favorite,
+            color: Color(0xFFE73700),
+          ),
+          tooltip: '좋아요',
+          onPressed: () {},
+        ),
       ],
     );
   }
