@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/top_app_bar.dart';
 
 enum Gender { man, woman }
 
@@ -57,23 +58,16 @@ class RegisterMyInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "회원가입",
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
+      appBar: TopAppBar(
+        title: "회원가입",
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
             tooltip: 'close_icon',
             onPressed: () => {},
             color: Colors.black,
-          )
+          ),
         ],
-        elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -84,7 +78,7 @@ class RegisterMyInfoPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                AvatarPreview(),
+                const AvatarPreview(),
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
