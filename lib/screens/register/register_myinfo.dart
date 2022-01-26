@@ -76,20 +76,9 @@ class RegisterMyInfoPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 const AvatarPreview(),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: const Text(
-                    "성별",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
+                const InputLabel(name: '성별'),
                 GenderSelectBox(gender: _gender),
                 Row(
                   children: const [
@@ -127,17 +116,16 @@ class RegisterMyInfoPage extends StatelessWidget {
                   type: TextInputType.text,
                 ),
                 const InputBox(
-                  labelText: 'TODO: 한 줄 자기소개',
+                  labelText: '한 줄 자기소개',
                   type: TextInputType.text,
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 MainButtonIcon(
-                    name: "다음", icon: Icons.navigate_next, f: () => {}),
-                const SizedBox(
-                  height: 30,
+                  name: "다음",
+                  icon: Icons.navigate_next,
+                  f: () => {},
                 ),
+                const SizedBox(height: 30),
               ],
             ),
           ),
@@ -147,6 +135,88 @@ class RegisterMyInfoPage extends StatelessWidget {
   }
 }
 
+class AvatarPreview extends StatelessWidget {
+  const AvatarPreview({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(10),
+          child: CircleAvatar(
+            radius: 70,
+            backgroundColor: Colors.grey,
+          ),
+        ),
+        FloatingActionButton.small(
+          onPressed: () => {},
+          child: const Icon(Icons.add),
+        ),
+      ],
+    );
+  }
+}
+
+class InputLabel extends StatelessWidget {
+  final String _name;
+
+  const InputLabel({
+    required name,
+    Key? key,
+  })  : _name = name,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Text(
+        _name,
+        style: const TextStyle(
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
+}
+
+class GenderSelectBox extends StatelessWidget {
+  const GenderSelectBox({
+    Key? key,
+    required Gender gender,
+  })  : _gender = gender,
+        super(key: key);
+
+  final Gender _gender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // TODO: setstate
+        Radio(
+          value: Gender.man,
+          groupValue: _gender,
+          onChanged: (gender) => {},
+        ),
+        const Text('남성'),
+        Radio(
+          value: Gender.woman,
+          groupValue: _gender,
+          onChanged: (gender) => {},
+        ),
+        const Text('여성'),
+      ],
+    );
+  }
+}
+
+//TODO: separate InputBox, DropdownButtonBox, and ChipInput
 class DropdownInputBox extends StatelessWidget {
   const DropdownInputBox({
     Key? key,
@@ -204,63 +274,6 @@ class InputBox extends StatelessWidget {
           labelText: _labelText,
         ),
       ),
-    );
-  }
-}
-
-class AvatarPreview extends StatelessWidget {
-  const AvatarPreview({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(10),
-          child: CircleAvatar(
-            radius: 70,
-            backgroundColor: Colors.grey,
-          ),
-        ),
-        FloatingActionButton.small(
-          onPressed: () => {},
-          child: const Icon(Icons.add),
-        ),
-      ],
-    );
-  }
-}
-
-class GenderSelectBox extends StatelessWidget {
-  const GenderSelectBox({
-    Key? key,
-    required Gender gender,
-  })  : _gender = gender,
-        super(key: key);
-
-  final Gender _gender;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        // TODO: setstate
-        Radio(
-          value: Gender.man,
-          groupValue: _gender,
-          onChanged: (gender) => {},
-        ),
-        const Text('남성'),
-        Radio(
-          value: Gender.woman,
-          groupValue: _gender,
-          onChanged: (gender) => {},
-        ),
-        const Text('여성'),
-      ],
     );
   }
 }
