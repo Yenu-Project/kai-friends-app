@@ -84,22 +84,7 @@ class RegisterMyInfoPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundColor: Colors.grey,
-                      ),
-                    ),
-                    FloatingActionButton.small(
-                      onPressed: () => {},
-                      child: const Icon(Icons.add),
-                    ),
-                  ],
-                ),
+                AvatarPreview(),
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -110,127 +95,45 @@ class RegisterMyInfoPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    // TODO: setstate
-                    Radio(
-                      value: Gender.man,
-                      groupValue: _gender,
-                      onChanged: (gender) => {},
-                    ),
-                    const Text('남성'),
-                    Radio(
-                      value: Gender.woman,
-                      groupValue: _gender,
-                      onChanged: (gender) => {},
-                    ),
-                    const Text('여성'),
-                  ],
-                ),
+                GenderSelectBox(gender: _gender),
                 Row(
                   children: const [
                     Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: '나이',
-                          ),
-                        ),
+                      child: InputBox(
+                        labelText: '나이',
+                        type: TextInputType.number,
                       ),
                     ),
                     Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: '학번',
-                          ),
-                        ),
+                      child: InputBox(
+                        labelText: '학번',
+                        type: TextInputType.number,
                       ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: DropdownButtonFormField(
-                      value: _degreeSelected,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '과정',
-                      ),
-                      items: _degree.map(
-                        (value) {
-                          return DropdownMenuItem(
-                            child: Text(value),
-                            value: value,
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (value) {}),
+                DropdownInputBox(
+                  selected: _degreeSelected,
+                  list: _degree,
+                  labelText: '학위',
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: DropdownButtonFormField(
-                      value: _majorSelected,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '전공',
-                      ),
-                      items: _major.map(
-                        (value) {
-                          return DropdownMenuItem(
-                            child: Text(value),
-                            value: value,
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (value) {}),
+                DropdownInputBox(
+                  selected: _majorSelected,
+                  list: _major,
+                  labelText: '전공',
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: DropdownButtonFormField(
-                      value: _dormSelected,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: '기숙사',
-                      ),
-                      items: _dorm.map(
-                        (value) {
-                          return DropdownMenuItem(
-                            child: Text(value),
-                            value: value,
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (value) {}),
+                DropdownInputBox(
+                  selected: _dormSelected,
+                  list: _dorm,
+                  labelText: '기숙사',
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '앙뇽',
-                    ),
-                  ),
+                const InputBox(
+                  labelText: 'TODO: Chip input',
+                  type: TextInputType.text,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '한 줄 자기소개',
-                    ),
-                  ),
+                const InputBox(
+                  labelText: 'TODO: 한 줄 자기소개',
+                  type: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 30,
@@ -248,6 +151,124 @@ class RegisterMyInfoPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class DropdownInputBox extends StatelessWidget {
+  const DropdownInputBox({
+    Key? key,
+    required selected,
+    required List<String> list,
+    required labelText,
+  })  : _selected = selected,
+        _list = list,
+        _labelText = labelText,
+        super(key: key);
+
+  final String _selected;
+  final List<String> _list;
+  final String _labelText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      child: DropdownButtonFormField(
+          value: _selected,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: _labelText,
+          ),
+          items: _list.map(
+            (value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: value,
+              );
+            },
+          ).toList(),
+          onChanged: (value) {}),
+    );
+  }
+}
+
+class InputBox extends StatelessWidget {
+  const InputBox({Key? key, required labelText, required type})
+      : _labelText = labelText,
+        _type = type,
+        super(key: key);
+  final String _labelText;
+  final TextInputType _type;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      child: TextField(
+        keyboardType: _type,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: _labelText,
+        ),
+      ),
+    );
+  }
+}
+
+class AvatarPreview extends StatelessWidget {
+  const AvatarPreview({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(10),
+          child: CircleAvatar(
+            radius: 70,
+            backgroundColor: Colors.grey,
+          ),
+        ),
+        FloatingActionButton.small(
+          onPressed: () => {},
+          child: const Icon(Icons.add),
+        ),
+      ],
+    );
+  }
+}
+
+class GenderSelectBox extends StatelessWidget {
+  const GenderSelectBox({
+    Key? key,
+    required Gender gender,
+  })  : _gender = gender,
+        super(key: key);
+
+  final Gender _gender;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // TODO: setstate
+        Radio(
+          value: Gender.man,
+          groupValue: _gender,
+          onChanged: (gender) => {},
+        ),
+        const Text('남성'),
+        Radio(
+          value: Gender.woman,
+          groupValue: _gender,
+          onChanged: (gender) => {},
+        ),
+        const Text('여성'),
+      ],
     );
   }
 }
