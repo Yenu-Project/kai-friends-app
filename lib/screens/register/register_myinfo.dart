@@ -120,7 +120,7 @@ class RegisterMyInfoPage extends StatelessWidget {
                   type: TextInputType.text,
                 ),
                 const SizedBox(height: 30),
-                MainButtonIcon(
+                IconMainButton(
                   name: "다음",
                   icon: Icons.navigate_next,
                   f: () => {},

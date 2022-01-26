@@ -18,12 +18,12 @@ class MainButton extends StatelessWidget {
   }
 }
 
-class MainButtonIcon extends StatelessWidget {
+class IconMainButton extends StatelessWidget {
   final String _name;
   final void Function() _f;
   final IconData _icon;
 
-  const MainButtonIcon({required name, required icon, required f, Key? key})
+  const IconMainButton({required name, required icon, required f, Key? key})
       : _name = name,
         _icon = icon,
         _f = f,
