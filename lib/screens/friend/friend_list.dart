@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/color_chip.dart';
+import '../../widgets/top_app_bar.dart';
+import '../../widgets/bottom_nav_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,12 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text('친구 목록'),
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0.0,
-          actions: const [
+        appBar: const TopAppBar(
+          title: '친구 목록',
+          actions: [
             Text('정렬'),
             Text('필터'),
           ],
@@ -38,6 +37,7 @@ class MyApp extends StatelessWidget {
             ],
           ),
         ),
+        bottomNavigationBar: BottomNavBar(),
       ),
     );
   }
