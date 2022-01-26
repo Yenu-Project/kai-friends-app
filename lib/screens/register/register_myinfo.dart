@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
 
 enum Gender { man, woman }
@@ -132,11 +133,8 @@ class RegisterMyInfoPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                ElevatedButton.icon(
-                  onPressed: () => {},
-                  icon: const Icon(Icons.navigate_next),
-                  label: const Text("다음"),
-                ),
+                MainButtonIcon(
+                    name: "다음", icon: Icons.navigate_next, f: () => {}),
                 const SizedBox(
                   height: 30,
                 ),
