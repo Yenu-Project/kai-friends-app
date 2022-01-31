@@ -10,14 +10,18 @@ void main() {
       Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
       Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
       Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
     ],
   ));
 }
 
 class Friend {
-  String name = 'name';
-  String introduction = 'introduction';
-  List<String> preferences = const ['prefer', 'prefer', 'prefer', 'prefer'];
+  String name;
+  String introduction;
+  List<String> preferences;
 
   Friend(this.name, this.introduction, this.preferences);
 }
@@ -43,11 +47,16 @@ class MyApp extends StatelessWidget {
           ],
         ),
         body: SafeArea(
-          child: ListView(
-            children: friends
-                .map((friend) => FriendListTile(friend: friend))
-                .toList(),
-          ),
+          child: ListView.separated(
+              itemCount: friends.length,
+              itemBuilder: (context, index) {
+                return FriendListTile(friend: friends[index]);
+              },
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  indent: 68.0,
+                );
+              }),
         ),
         bottomNavigationBar: BottomNavBar(),
       ),
