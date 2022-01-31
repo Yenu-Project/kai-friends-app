@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/color_chip.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
 
@@ -111,10 +112,8 @@ class RegisterMyInfoPage extends StatelessWidget {
                   list: _dorm,
                   labelText: '기숙사',
                 ),
-                const InputBox(
-                  labelText: 'TODO: Chip input',
-                  type: TextInputType.text,
-                ),
+                const ChipInputBox(label_name: '동아리 / 단체'),
+                const ChipInputBox(label_name: '수업'),
                 const InputBox(
                   labelText: '한 줄 자기소개',
                   type: TextInputType.text,
@@ -131,6 +130,58 @@ class RegisterMyInfoPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ChipInputBox extends StatelessWidget {
+  final _label_name;
+
+  const ChipInputBox({
+    Key? key,
+    required String label_name,
+  })  : _label_name = label_name,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Text(
+            _label_name,
+            style: TextStyle(
+              color: Colors.grey.shade700,
+            ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+              color: Colors.grey,
+              style: BorderStyle.solid,
+              width: 1,
+            ),
+          ),
+          child: Wrap(
+            spacing: 6,
+            children: const [
+              // ColorChip(),
+              Chip(
+                label: Icon(
+                  Icons.add,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -177,8 +228,8 @@ class InputLabel extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
         _name,
-        style: const TextStyle(
-          color: Colors.grey,
+        style: TextStyle(
+          color: Colors.grey.shade700,
         ),
       ),
     );
