@@ -112,19 +112,25 @@ class RegisterMyInfoPage extends StatelessWidget {
                   list: _dorm,
                   labelText: '기숙사',
                 ),
-                const ChipInputBox(labelText: '동아리 / 단체'),
-                const ChipInputBox(labelText: '수업'),
+                const ChipInputBox(
+                  id: 'org',
+                  labelText: '동아리 / 단체',
+                ),
+                const ChipInputBox(
+                  id: 'class',
+                  labelText: '수업',
+                ),
                 const InputBox(
                   labelText: '한 줄 자기소개',
                   type: TextInputType.text,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 IconMainButton(
                   name: "다음",
                   icon: Icons.navigate_next,
                   f: () => {},
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -160,30 +166,6 @@ class AvatarPreview extends StatelessWidget {
   }
 }
 
-class InputLabel extends StatelessWidget {
-  final String _name;
-
-  const InputLabel({
-    required name,
-    Key? key,
-  })  : _name = name,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Text(
-        _name,
-        style: TextStyle(
-          color: Colors.grey.shade700,
-        ),
-      ),
-    );
-  }
-}
-
 class GenderSelectBox extends StatelessWidget {
   const GenderSelectBox({
     Key? key,
@@ -214,4 +196,3 @@ class GenderSelectBox extends StatelessWidget {
     );
   }
 }
-
