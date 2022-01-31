@@ -4,11 +4,31 @@ import '../../widgets/top_app_bar.dart';
 import '../../widgets/bottom_nav_bar.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(
+    friends: [
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+      Friend('name', 'introduction', ['prefer', 'prefer', 'prefer', 'prefer']),
+    ],
+  ));
+}
+
+class Friend {
+  String name = 'name';
+  String introduction = 'introduction';
+  List<String> preferences = const ['prefer', 'prefer', 'prefer', 'prefer'];
+
+  Friend(this.name, this.introduction, this.preferences);
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final List<Friend> friends;
+
+  const MyApp({
+    Key? key,
+    required this.friends,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView(
-            children: const <Widget>[
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-              FriendListTile(),
-            ],
+            children: friends
+                .map((friend) => FriendListTile(friend: friend))
+                .toList(),
           ),
         ),
         bottomNavigationBar: BottomNavBar(),
@@ -44,7 +56,12 @@ class MyApp extends StatelessWidget {
 }
 
 class FriendListTile extends StatelessWidget {
-  const FriendListTile({Key? key}) : super(key: key);
+  final Friend friend;
+
+  const FriendListTile({
+    Key? key,
+    required this.friend,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,25 +69,24 @@ class FriendListTile extends StatelessWidget {
       color: Colors.white,
       child: Column(
         children: <Widget>[
-          const ListTile(
-            leading: CircleAvatar(
+          ListTile(
+            leading: const CircleAvatar(
               radius: 20.0,
             ),
-            title: Text('name'),
-            subtitle: Text('자기소개'),
-            trailing: Icon(
+            title: Text(friend.name),
+            subtitle: Text(friend.introduction),
+            trailing: const Icon(
               Icons.question_answer_rounded,
             ),
           ),
           Wrap(
             spacing: 6.0,
             runSpacing: 6.0,
-            children: const <Widget>[
-              ColorChip(),
-              ColorChip(),
-              ColorChip(),
-              ColorChip(),
-            ],
+            children: friend.preferences
+                .map((e) => ColorChip(
+                      text: e,
+                    ))
+                .toList(),
           ),
         ],
       ),
