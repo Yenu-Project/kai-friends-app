@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kai_friends_app/widgets/color_chip.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
+import 'package:kai_friends_app/widgets/input_box.dart';
 
 enum Gender { man, woman }
 
@@ -112,8 +112,8 @@ class RegisterMyInfoPage extends StatelessWidget {
                   list: _dorm,
                   labelText: '기숙사',
                 ),
-                const ChipInputBox(label_name: '동아리 / 단체'),
-                const ChipInputBox(label_name: '수업'),
+                const ChipInputBox(labelText: '동아리 / 단체'),
+                const ChipInputBox(labelText: '수업'),
                 const InputBox(
                   labelText: '한 줄 자기소개',
                   type: TextInputType.text,
@@ -130,58 +130,6 @@ class RegisterMyInfoPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ChipInputBox extends StatelessWidget {
-  final _label_name;
-
-  const ChipInputBox({
-    Key? key,
-    required String label_name,
-  })  : _label_name = label_name,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Text(
-            _label_name,
-            style: TextStyle(
-              color: Colors.grey.shade700,
-            ),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-              color: Colors.grey,
-              style: BorderStyle.solid,
-              width: 1,
-            ),
-          ),
-          child: Wrap(
-            spacing: 6,
-            children: const [
-              // ColorChip(),
-              Chip(
-                label: Icon(
-                  Icons.add,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
@@ -267,64 +215,3 @@ class GenderSelectBox extends StatelessWidget {
   }
 }
 
-//TODO: separate InputBox, DropdownButtonBox, and ChipInput
-class DropdownInputBox extends StatelessWidget {
-  const DropdownInputBox({
-    Key? key,
-    required selected,
-    required List<String> list,
-    required labelText,
-  })  : _selected = selected,
-        _list = list,
-        _labelText = labelText,
-        super(key: key);
-
-  final String _selected;
-  final List<String> _list;
-  final String _labelText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: DropdownButtonFormField(
-          value: _selected,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: _labelText,
-          ),
-          items: _list.map(
-            (value) {
-              return DropdownMenuItem(
-                child: Text(value),
-                value: value,
-              );
-            },
-          ).toList(),
-          onChanged: (value) {}),
-    );
-  }
-}
-
-class InputBox extends StatelessWidget {
-  const InputBox({Key? key, required labelText, required type})
-      : _labelText = labelText,
-        _type = type,
-        super(key: key);
-  final String _labelText;
-  final TextInputType _type;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: TextField(
-        keyboardType: _type,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: _labelText,
-        ),
-      ),
-    );
-  }
-}
