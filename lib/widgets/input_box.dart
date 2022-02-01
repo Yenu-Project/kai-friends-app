@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/color_chip.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 
 class InputLabel extends StatelessWidget {
@@ -57,10 +58,11 @@ class ChipInputBox extends StatelessWidget {
           child: Wrap(
             spacing: 6,
             children: [
-              // ColorChip(),
+              ColorChip(),
+              // TODO: add multiple ColorChip() to here,
               ActionChip(
                 label: const Icon(Icons.add),
-                onPressed: () => InputDialog(context),
+                onPressed: () => ShowDialog(context),
               ),
             ],
           ),
@@ -69,7 +71,7 @@ class ChipInputBox extends StatelessWidget {
     );
   }
 
-  void InputDialog(BuildContext context) async {
+  void ShowDialog(BuildContext context) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -110,7 +112,18 @@ class ChipInputBoxDetailDialog extends StatelessWidget {
             },
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
+          ),
+          Wrap(
+            spacing: 6,
+            children: [
+              ColorChip(),
+              ColorChip(),
+              ColorChip(),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
