@@ -9,13 +9,23 @@ import 'package:kai_friends_app/assets/constants.dart';
 
 enum Gender { man, woman }
 
-class RegisterMyInfoPage extends StatelessWidget {
-  final Gender _gender = Gender.man;
-  get _degreeSelected => '학사과정';
-  get _majorSelected => '물리학과';
-  get _dormSelected => '사랑관';
+class RegisterMyInfoPage extends StatefulWidget {
+  const RegisterMyInfoPage({Key? key}) : super(key: key);
+  @override
+  State<RegisterMyInfoPage> createState() => _RegisterMyInfoPageState();
+}
 
-  RegisterMyInfoPage({Key? key}) : super(key: key);
+class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
+  Gender gender = Gender.man;
+  String degreeSelected = '학사과정';
+  String majorSelected = '물리학과';
+  String dormSelected = '사랑관';
+
+  void genderSetter(val) {
+    setState(() {
+      gender = val as Gender;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +50,7 @@ class RegisterMyInfoPage extends StatelessWidget {
                 const SizedBox(height: 30),
                 const AvatarPreview(),
                 const InputLabel(name: '성별'),
-                GenderSelectBox(gender: _gender),
+                GenderSelectBox(gender: gender, stateSetter: genderSetter),
                 Row(
                   children: const [
                     Expanded(
@@ -58,17 +68,17 @@ class RegisterMyInfoPage extends StatelessWidget {
                   ],
                 ),
                 DropdownInputBox(
-                  selected: _degreeSelected,
+                  selected: degreeSelected,
                   list: degreeList,
                   labelText: '학위',
                 ),
                 DropdownInputBox(
-                  selected: _majorSelected,
+                  selected: majorSelected,
                   list: majorList,
                   labelText: '전공',
                 ),
                 DropdownInputBox(
-                  selected: _dormSelected,
+                  selected: dormSelected,
                   list: dormList,
                   labelText: '기숙사',
                 ),
@@ -128,11 +138,11 @@ class AvatarPreview extends StatelessWidget {
 
 class GenderSelectBox extends StatelessWidget {
   final Gender gender;
+  final void Function(Gender?) stateSetter;
 
-  const GenderSelectBox({
-    Key? key,
-    required this.gender,
-  }) : super(key: key);
+  const GenderSelectBox(
+      {Key? key, required this.gender, required this.stateSetter})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -142,13 +152,13 @@ class GenderSelectBox extends StatelessWidget {
         Radio(
           value: Gender.man,
           groupValue: gender,
-          onChanged: (gender) => {},
+          onChanged: stateSetter,
         ),
         const Text('남성'),
         Radio(
           value: Gender.woman,
           groupValue: gender,
-          onChanged: (gender) => {},
+          onChanged: stateSetter,
         ),
         const Text('여성'),
       ],
