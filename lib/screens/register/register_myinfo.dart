@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/input/chip_input_box.dart';
+import 'package:kai_friends_app/widgets/input/dropdown_input_box.dart';
+import 'package:kai_friends_app/widgets/input/input_box.dart';
+import 'package:kai_friends_app/widgets/input/input_label.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
-import 'package:kai_friends_app/widgets/input_box.dart';
 
 enum Gender { man, woman }
 

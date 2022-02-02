@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kai_friends_app/widgets/input_box.dart';
+import 'package:kai_friends_app/widgets/input/chip_input_box.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
 
