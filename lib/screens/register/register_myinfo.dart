@@ -5,57 +5,14 @@ import 'package:kai_friends_app/widgets/input/input_box.dart';
 import 'package:kai_friends_app/widgets/input/input_label.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
+import 'package:kai_friends_app/assets/constants.dart';
 
 enum Gender { man, woman }
 
 class RegisterMyInfoPage extends StatelessWidget {
   final Gender _gender = Gender.man;
-  final _degree = ['학사과정', '석사과정', '박사과정', '교수'];
-  final _major = [
-    '물리학과',
-    '수리과학과',
-    '화학과',
-    '생명과학과',
-    '기계공학과',
-    '항공우주공학과',
-    '전기및전자공학부',
-    '전산학부',
-    '건설및환경공학과',
-    '바이오및뇌공학과',
-    '산업디자인학과',
-    '산업및시스템공학과',
-    '생명화학공학과',
-    '신소재공학과',
-    '원자력및양자공학과',
-    '기술경영학부',
-    '융합인재학부'
-  ];
-  final _dorm = [
-    '세종관',
-    '아름관',
-    '나들관',
-    '미르관',
-    '사랑관',
-    '신뢰관',
-    '다솜관',
-    '나눔관',
-    '소망관',
-    '지혜관',
-    '희망관',
-    '성실관',
-    '갈릴레이관',
-    '원내아파트',
-    '문지관',
-    '진리관',
-    '여울관',
-    '나래관',
-    '화암관'
-  ];
-
   get _degreeSelected => '학사과정';
-
   get _majorSelected => '물리학과';
-
   get _dormSelected => '사랑관';
 
   RegisterMyInfoPage({Key? key}) : super(key: key);
@@ -102,17 +59,17 @@ class RegisterMyInfoPage extends StatelessWidget {
                 ),
                 DropdownInputBox(
                   selected: _degreeSelected,
-                  list: _degree,
+                  list: degreeList,
                   labelText: '학위',
                 ),
                 DropdownInputBox(
                   selected: _majorSelected,
-                  list: _major,
+                  list: majorList,
                   labelText: '전공',
                 ),
                 DropdownInputBox(
                   selected: _dormSelected,
-                  list: _dorm,
+                  list: dormList,
                   labelText: '기숙사',
                 ),
                 const ChipInputBox(
