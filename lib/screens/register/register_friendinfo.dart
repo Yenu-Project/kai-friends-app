@@ -10,7 +10,7 @@ class RegisterFriendInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopAppBar(
-        title: "회원가입",
+        title: '회원가입',
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
@@ -27,53 +27,53 @@ class RegisterFriendInfoPage extends StatelessWidget {
             child: Column(
               children: [
                 const MyTitle(
-                  title: "만나고 싶은 친구 정보를 알려주세요!",
+                  title: '만나고 싶은 친구 정보를 알려주세요!',
                   size: 18.0,
                 ),
                 const Divider(height: 10),
                 const MyTitle(
-                  title: "학과 친구를 원해요!",
+                  title: '학과 친구를 원해요!',
                   width: double.infinity,
                 ),
                 const ChipInputBox(
-                  id: "friend_major",
-                  labelText: "친구의 과정 / 학과",
+                  id: 'friend_major',
+                  labelText: '친구의 과정 / 학과',
                 ),
                 const Divider(height: 10),
                 const MyTitle(
-                  title: "수업 친구를 원해요!",
+                  title: '수업 친구를 원해요!',
                   width: double.infinity,
                 ),
                 const ChipInputBox(
-                  id: "friend_class",
-                  labelText: "친구의 수업",
+                  id: 'friend_class',
+                  labelText: '친구의 수업',
                 ),
                 const Divider(height: 10),
                 const MyTitle(
-                  title: "관심 분야를 같이할 친구를 원해요!",
+                  title: '관심 분야를 같이할 친구를 원해요!',
                   width: double.infinity,
                 ),
                 const ChipInputBox(
-                  id: "friend_interest",
-                  labelText: "친구의 관심분야",
+                  id: 'friend_interest',
+                  labelText: '친구의 관심분야',
                 ),
                 const Divider(height: 10),
                 const MyTitle(
-                  title: "멘토링을 원해요!",
+                  title: '멘토링을 원해요!',
                   width: double.infinity,
                 ),
                 const ChipInputBox(
-                  id: "friend_mentor",
-                  labelText: "분야",
+                  id: 'friend_mentor',
+                  labelText: '분야',
                 ),
                 const Divider(height: 10),
                 const MyTitle(
-                  title: "멘토링을 해주고 싶어요!",
+                  title: '멘토링을 해주고 싶어요!',
                   width: double.infinity,
                 ),
                 const ChipInputBox(
-                  id: "friend_mentee",
-                  labelText: "분야",
+                  id: 'friend_mentee',
+                  labelText: '분야',
                 ),
                 const SizedBox(height: 20),
                 Row(
