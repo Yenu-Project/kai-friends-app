@@ -86,7 +86,7 @@ class ChipInputBoxDetailDialog extends StatelessWidget {
             actionIcon: Icons.search,
             paddingAll: 0.0,
             action: () {
-              print("hello world!");
+              print('hello world!');
             },
           ),
           const SizedBox(

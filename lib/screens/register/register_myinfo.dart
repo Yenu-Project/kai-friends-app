@@ -64,7 +64,7 @@ class RegisterMyInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopAppBar(
-        title: "회원가입",
+        title: '회원가입',
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
@@ -129,7 +129,7 @@ class RegisterMyInfoPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 IconMainButton(
-                  name: "다음",
+                  name: '다음',
                   icon: Icons.navigate_next,
                   f: () => {},
                 ),
