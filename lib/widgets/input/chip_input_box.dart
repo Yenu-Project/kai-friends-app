@@ -22,7 +22,7 @@ class ChipInputBox extends StatelessWidget {
         Container(
           width: double.infinity,
           margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             border: Border.all(
@@ -38,6 +38,7 @@ class ChipInputBox extends StatelessWidget {
               // TODO: add multiple ColorChip() to here,
               ActionChip(
                 label: const Icon(Icons.add),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: () => showDetailDialog(context),
               ),
             ],
