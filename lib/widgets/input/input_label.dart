@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 class InputLabel extends StatelessWidget {
-  final String _name;
+  final String name;
 
   const InputLabel({
-    required name,
+    required this.name,
     Key? key,
-  })  : _name = name,
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class InputLabel extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
-        _name,
+        name,
         style: TextStyle(
           color: Colors.grey.shade700,
         ),

@@ -5,22 +5,20 @@ import 'input_box.dart';
 import 'input_label.dart';
 
 class ChipInputBox extends StatelessWidget {
+  final String labelText;
+  final String id;
+
   const ChipInputBox({
     Key? key,
-    required id,
-    required labelText,
-  })  : _labelText = labelText,
-        _id = id,
-        super(key: key);
-
-  final String _labelText;
-  final String _id;
+    required this.id,
+    required this.labelText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InputLabel(name: _labelText),
+        InputLabel(name: labelText),
         Container(
           width: double.infinity,
           margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
@@ -53,26 +51,25 @@ class ChipInputBox extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ChipInputBoxDetailDialog(id: _id);
+        return ChipInputBoxDetailDialog(id: id);
       },
     );
   }
 }
 
 class ChipInputBoxDetailDialog extends StatelessWidget {
+  final String id;
+
   const ChipInputBoxDetailDialog({
     Key? key,
-    required id,
-  })  : _id = id,
-        super(key: key);
-
-  final String _id;
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        _id, // TODO: map id to appropriate title
+        id, // TODO: map id to appropriate title
         style: const TextStyle(
           fontWeight: FontWeight.bold,
         ),

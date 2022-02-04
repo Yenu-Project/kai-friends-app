@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 
 class TopAppBar extends StatelessWidget with PreferredSizeWidget {
-  final String _title;
-  final List<Widget> _actions;
+  final String title;
+  final List<Widget> actions;
 
   const TopAppBar({
     Key? key,
-    required title,
-    required actions,
-  })  : _title = title,
-        _actions = actions,
-        super(key: key);
+    required this.title,
+    required this.actions,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        _title,
+        title,
         style: const TextStyle(
           color: Colors.black,
         ),
       ),
-      actions: _actions,
+      actions: actions,
       elevation: 0,
       backgroundColor: Colors.transparent,
     );
