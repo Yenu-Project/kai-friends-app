@@ -26,7 +26,7 @@ class Friend {
   Friend(this.name, this.introduction, this.preferences);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final List<Friend> friends;
 
   const MyApp({
@@ -35,22 +35,51 @@ class MyApp extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String dropdownValue = '정렬';
+  List<String> sortingType = ['정렬', '추가순', '학과순', '학번순'];
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: const TopAppBar(
+        appBar: TopAppBar(
           title: '친구 목록',
           actions: [
-            Text('정렬'),
-            Text('필터'),
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_drop_down),
+              underline: const SizedBox(),
+              items: sortingType
+                  .map((value) => DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      ))
+                  .toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+            ),
+            TextButton.icon(
+                style: TextButton.styleFrom(
+                  primary: Colors.black,
+                ),
+                onPressed: () {},
+                icon: const Icon(Icons.filter_list),
+                label: const Text('필터')),
           ],
         ),
         body: SafeArea(
           child: ListView.separated(
-              itemCount: friends.length,
+              itemCount: widget.friends.length,
               itemBuilder: (context, index) {
-                return FriendListTile(friend: friends[index]);
+                return FriendListTile(friend: widget.friends[index]);
               },
               separatorBuilder: (context, index) {
                 return const Divider(
