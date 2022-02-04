@@ -102,29 +102,26 @@ class RegisterFriendInfoPage extends StatelessWidget {
 }
 
 class MyTitle extends StatelessWidget {
+  final String title;
+  final double? width;
+  final double? size;
+
   const MyTitle({
     Key? key,
-    required title,
-    size,
-    width,
-  })  : _title = title,
-        _width = width,
-        _size = size,
-        super(key: key);
-
-  final String _title;
-  final double? _width;
-  final double? _size;
+    required this.title,
+    this.size,
+    this.width,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _width,
+      width: width,
       padding: const EdgeInsets.all(10.0),
       child: Text(
-        _title,
+        title,
         style: TextStyle(
-          fontSize: _size ?? 16.0,
+          fontSize: size ?? 16.0,
         ),
       ),
     );

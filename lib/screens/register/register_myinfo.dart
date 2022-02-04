@@ -170,13 +170,12 @@ class AvatarPreview extends StatelessWidget {
 }
 
 class GenderSelectBox extends StatelessWidget {
+  final Gender gender;
+
   const GenderSelectBox({
     Key? key,
-    required Gender gender,
-  })  : _gender = gender,
-        super(key: key);
-
-  final Gender _gender;
+    required this.gender,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -185,13 +184,13 @@ class GenderSelectBox extends StatelessWidget {
         // TODO: setstate
         Radio(
           value: Gender.man,
-          groupValue: _gender,
+          groupValue: gender,
           onChanged: (gender) => {},
         ),
         const Text('남성'),
         Radio(
           value: Gender.woman,
-          groupValue: _gender,
+          groupValue: gender,
           onChanged: (gender) => {},
         ),
         const Text('여성'),
