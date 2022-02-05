@@ -11,28 +11,37 @@ enum Gender { man, woman }
 
 class RegisterMyInfoPage extends StatefulWidget {
   const RegisterMyInfoPage({Key? key}) : super(key: key);
+
   @override
   State<RegisterMyInfoPage> createState() => _RegisterMyInfoPageState();
 }
 
 class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
-  Gender gender = Gender.man;
+  Gender genderSelected = Gender.man;
   int degreeSelected = 0;
   int majorSelected = 0;
   int dormSelected = 0;
 
+  // input box: use TextEditingController, not updating variable in real time
+  final ageController = TextEditingController();
+  final enterYearController = TextEditingController();
+  final introController = TextEditingController();
+
   void genderSetter(val) {
     setState(() {
-      gender = val as Gender;
+      genderSelected = val as Gender;
     });
   }
-  void degreeSetter(val){
+
+  void degreeSetter(val) {
     degreeSelected = val as int;
   }
-  void majorSetter(val){
+
+  void majorSetter(val) {
     majorSelected = val as int;
   }
-  void dormSetter(val){
+
+  void dormSetter(val) {
     dormSelected = val as int;
   }
 
@@ -59,17 +68,22 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                 const SizedBox(height: 30),
                 const AvatarPreview(),
                 const InputLabel(name: '성별'),
-                GenderSelectBox(gender: gender, stateSetter: genderSetter),
+                GenderSelectBox(
+                  gender: genderSelected,
+                  stateSetter: genderSetter,
+                ),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: InputBox(
+                        controller: ageController,
                         labelText: '나이',
                         type: TextInputType.number,
                       ),
                     ),
                     Expanded(
                       child: InputBox(
+                        controller: enterYearController,
                         labelText: '학번',
                         type: TextInputType.number,
                       ),
@@ -102,7 +116,8 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                   id: 'class',
                   labelText: '수업',
                 ),
-                const InputBox(
+                InputBox(
+                  controller: introController,
                   labelText: '한 줄 자기소개',
                   type: TextInputType.text,
                 ),
@@ -110,7 +125,18 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                 IconMainButton(
                   name: '다음',
                   icon: Icons.navigate_next,
-                  f: () => {},
+                  f: () {
+                    //TODO: test form serializing
+                    print({
+                      "gender": genderSelected,
+                      "age": ageController.text,
+                      "enterYear": enterYearController.text,
+                      "degree": degreeSelected,
+                      "major": majorSelected,
+                      "dorm": dormSelected,
+                      "intro": introController.text,
+                    });
+                  },
                 ),
                 const SizedBox(height: 20),
               ],

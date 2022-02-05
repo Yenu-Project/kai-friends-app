@@ -6,11 +6,13 @@ class InputBox extends StatelessWidget {
   final IconData? actionIcon;
   final Function()? action;
   final double? paddingAll;
+  final TextEditingController controller;
 
   const InputBox({
     Key? key,
     required this.labelText,
     required this.type,
+    required this.controller,
     this.actionIcon,
     this.action,
     this.paddingAll,
@@ -23,6 +25,7 @@ class InputBox extends StatelessWidget {
           horizontal: paddingAll ?? 10, vertical: paddingAll ?? 20),
       child: TextField(
         keyboardType: type,
+        controller: controller,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: labelText,

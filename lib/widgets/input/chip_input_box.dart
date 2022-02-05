@@ -79,6 +79,7 @@ class ChipInputBoxDetailDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           InputBox(
+            controller: TextEditingController(), //TODO: add controller variable
             labelText: '수업명/과목번호',
             type: TextInputType.text,
             actionIcon: Icons.search,
