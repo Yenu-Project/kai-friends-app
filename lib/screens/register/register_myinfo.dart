@@ -17,14 +17,23 @@ class RegisterMyInfoPage extends StatefulWidget {
 
 class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
   Gender gender = Gender.man;
-  String degreeSelected = '학사과정';
-  String majorSelected = '물리학과';
-  String dormSelected = '사랑관';
+  int degreeSelected = 0;
+  int majorSelected = 0;
+  int dormSelected = 0;
 
   void genderSetter(val) {
     setState(() {
       gender = val as Gender;
     });
+  }
+  void degreeSetter(val){
+    degreeSelected = val as int;
+  }
+  void majorSetter(val){
+    majorSelected = val as int;
+  }
+  void dormSetter(val){
+    dormSelected = val as int;
   }
 
   @override
@@ -71,16 +80,19 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                   selected: degreeSelected,
                   list: degreeList,
                   labelText: '학위',
+                  stateSetter: degreeSetter,
                 ),
                 DropdownInputBox(
                   selected: majorSelected,
                   list: majorList,
                   labelText: '전공',
+                  stateSetter: majorSetter,
                 ),
                 DropdownInputBox(
                   selected: dormSelected,
                   list: dormList,
                   labelText: '기숙사',
+                  stateSetter: dormSetter,
                 ),
                 const ChipInputBox(
                   id: 'org',
@@ -148,7 +160,6 @@ class GenderSelectBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // TODO: setstate
         Radio(
           value: Gender.man,
           groupValue: gender,

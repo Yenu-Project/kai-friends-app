@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class DropdownInputBox extends StatelessWidget {
-  final String selected;
+  final int selected;
   final List<String> list;
   final String labelText;
+  final Function(int?) stateSetter;
 
   const DropdownInputBox({
     Key? key,
     required this.selected,
     required this.list,
     required this.labelText,
+    required this.stateSetter,
   }) : super(key: key);
 
   @override
@@ -22,15 +24,15 @@ class DropdownInputBox extends StatelessWidget {
             border: const OutlineInputBorder(),
             labelText: labelText,
           ),
-          items: list.map(
+          items: [for (int i = 0; i < list.length; i++) i].map(
             (value) {
               return DropdownMenuItem(
-                child: Text(value),
+                child: Text(list[value]),
                 value: value,
               );
             },
           ).toList(),
-          onChanged: (value) {}),
+          onChanged: stateSetter),
     );
   }
 }
