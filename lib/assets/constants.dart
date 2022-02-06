@@ -39,3 +39,23 @@ const dormList = [
   '나래관',
   '화암관'
 ];
+
+const testSearchList = [
+  "MAS101",
+  "CS101",
+  "ME123",
+  "CH110",
+  "CS202",
+  "CS300",
+  "CS301",
+  "CS302",
+  "CS303",
+  "CS304",
+  "CS305",
+  "CS306",
+  "CS307",
+  "CS308",
+  "CS309",
+  "CS Special Seminar",
+  "PH110",
+];
