@@ -9,11 +9,13 @@ import 'input_label.dart';
 class ChipInputBox extends StatefulWidget {
   final String labelText;
   final String id;
+  final Function(Set<String>) stateSetter;
 
   const ChipInputBox({
     Key? key,
     required this.id,
     required this.labelText,
+    required this.stateSetter,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,14 @@ class _ChipInputBoxState extends State<ChipInputBox> {
       // chips.addAll(newSet);
       chips = newSet;
     });
+    widget.stateSetter(chips);
+  }
+
+  void chipRemover(String s) {
+    setState(() {
+      chips.remove(s);
+    });
+    widget.stateSetter(chips);
   }
 
   @override
@@ -51,7 +61,12 @@ class _ChipInputBoxState extends State<ChipInputBox> {
             spacing: 6,
             runSpacing: 6,
             children: [
-              for (String i in chips) ColorChip(text: i),
+              for (String i in chips)
+                ColorChip(
+                  key: UniqueKey(),
+                  text: i,
+                  onDeleted: chipRemover,
+                ),
               ActionChip(
                 label: const Icon(Icons.add),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

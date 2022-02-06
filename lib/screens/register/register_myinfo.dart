@@ -21,6 +21,8 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
   int degreeSelected = 0;
   int majorSelected = 0;
   int dormSelected = 0;
+  Set<String> clubSelected = {};
+  Set<String> classSelected = {};
 
   // input box: use TextEditingController, not updating variable in real time
   final ageController = TextEditingController();
@@ -31,18 +33,6 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
     setState(() {
       genderSelected = val as Gender;
     });
-  }
-
-  void degreeSetter(val) {
-    degreeSelected = val as int;
-  }
-
-  void majorSetter(val) {
-    majorSelected = val as int;
-  }
-
-  void dormSetter(val) {
-    dormSelected = val as int;
   }
 
   @override
@@ -94,27 +84,39 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                   selected: degreeSelected,
                   list: degreeList,
                   labelText: '학위',
-                  stateSetter: degreeSetter,
+                  stateSetter: (val) {
+                    degreeSelected = val as int;
+                  },
                 ),
                 DropdownInputBox(
                   selected: majorSelected,
                   list: majorList,
                   labelText: '전공',
-                  stateSetter: majorSetter,
+                  stateSetter: (val) {
+                    majorSelected = val as int;
+                  },
                 ),
                 DropdownInputBox(
                   selected: dormSelected,
                   list: dormList,
                   labelText: '기숙사',
-                  stateSetter: dormSetter,
+                  stateSetter: (val) {
+                    dormSelected = val as int;
+                  },
                 ),
-                const ChipInputBox(
+                ChipInputBox(
                   id: 'org',
                   labelText: '동아리 / 단체',
+                  stateSetter: (Set<String> val) {
+                    clubSelected = val;
+                  },
                 ),
-                const ChipInputBox(
+                ChipInputBox(
                   id: 'class',
                   labelText: '수업',
+                  stateSetter: (Set<String> val) {
+                    classSelected = val;
+                  },
                 ),
                 InputBox(
                   controller: introController,
@@ -134,6 +136,8 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                       "degree": degreeSelected,
                       "major": majorSelected,
                       "dorm": dormSelected,
+                      "clubs": clubSelected,
+                      "classes": classSelected,
                       "intro": introController.text,
                     });
                   },
