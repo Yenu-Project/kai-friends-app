@@ -10,10 +10,13 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: _f,
-      child: Text(_name),
-      style: ElevatedButton.styleFrom(primary: const Color(0xFFFF6C60)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: _f,
+        child: Text(_name),
+        style: ElevatedButton.styleFrom(primary: const Color(0xFFFF6C60)),
+      ),
     );
   }
 }
@@ -31,12 +34,14 @@ class IconMainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return ElevatedButton.icon(
-      onPressed: _f,
-      icon: Icon(_icon),
-      label: Text(_name),
-      style: ElevatedButton.styleFrom(primary: const Color(0xFFFF6C60)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton.icon(
+        onPressed: _f,
+        icon: Icon(_icon),
+        label: Text(_name),
+        style: ElevatedButton.styleFrom(primary: const Color(0xFFFF6C60)),
+      ),
     );
   }
 }

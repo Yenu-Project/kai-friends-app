@@ -8,10 +8,12 @@ class ColorChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       label: Text(
         text,
         style: const TextStyle(
           fontSize: 12.0,
+
         ),
       ),
     );

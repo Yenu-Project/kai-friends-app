@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/widgets/input/chip_input_box.dart';
+import 'package:kai_friends_app/widgets/input/dropdown_input_box.dart';
+import 'package:kai_friends_app/widgets/input/input_box.dart';
+import 'package:kai_friends_app/widgets/input/input_label.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
 
@@ -111,21 +115,25 @@ class RegisterMyInfoPage extends StatelessWidget {
                   list: _dorm,
                   labelText: '기숙사',
                 ),
-                const InputBox(
-                  labelText: 'TODO: Chip input',
-                  type: TextInputType.text,
+                const ChipInputBox(
+                  id: 'org',
+                  labelText: '동아리 / 단체',
+                ),
+                const ChipInputBox(
+                  id: 'class',
+                  labelText: '수업',
                 ),
                 const InputBox(
                   labelText: '한 줄 자기소개',
                   type: TextInputType.text,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 IconMainButton(
                   name: "다음",
                   icon: Icons.navigate_next,
                   f: () => {},
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -161,30 +169,6 @@ class AvatarPreview extends StatelessWidget {
   }
 }
 
-class InputLabel extends StatelessWidget {
-  final String _name;
-
-  const InputLabel({
-    required name,
-    Key? key,
-  })  : _name = name,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Text(
-        _name,
-        style: const TextStyle(
-          color: Colors.grey,
-        ),
-      ),
-    );
-  }
-}
-
 class GenderSelectBox extends StatelessWidget {
   const GenderSelectBox({
     Key? key,
@@ -212,68 +196,6 @@ class GenderSelectBox extends StatelessWidget {
         ),
         const Text('여성'),
       ],
-    );
-  }
-}
-
-//TODO: separate InputBox, DropdownButtonBox, and ChipInput
-class DropdownInputBox extends StatelessWidget {
-  const DropdownInputBox({
-    Key? key,
-    required selected,
-    required List<String> list,
-    required labelText,
-  })  : _selected = selected,
-        _list = list,
-        _labelText = labelText,
-        super(key: key);
-
-  final String _selected;
-  final List<String> _list;
-  final String _labelText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: DropdownButtonFormField(
-          value: _selected,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: _labelText,
-          ),
-          items: _list.map(
-            (value) {
-              return DropdownMenuItem(
-                child: Text(value),
-                value: value,
-              );
-            },
-          ).toList(),
-          onChanged: (value) {}),
-    );
-  }
-}
-
-class InputBox extends StatelessWidget {
-  const InputBox({Key? key, required labelText, required type})
-      : _labelText = labelText,
-        _type = type,
-        super(key: key);
-  final String _labelText;
-  final TextInputType _type;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: TextField(
-        keyboardType: _type,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: _labelText,
-        ),
-      ),
     );
   }
 }
