@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
 
 class DropdownInputBox extends StatelessWidget {
+  final int selected;
+  final List<String> list;
+  final String labelText;
+  final Function(int?) stateSetter;
+
   const DropdownInputBox({
     Key? key,
-    required selected,
-    required List<String> list,
-    required labelText,
-  })  : _selected = selected,
-        _list = list,
-        _labelText = labelText,
-        super(key: key);
-
-  final String _selected;
-  final List<String> _list;
-  final String _labelText;
+    required this.selected,
+    required this.list,
+    required this.labelText,
+    required this.stateSetter,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: DropdownButtonFormField(
-          value: _selected,
+          value: selected,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: _labelText,
+            labelText: labelText,
           ),
-          items: _list.map(
+          items: [for (int i = 0; i < list.length; i++) i].map(
             (value) {
               return DropdownMenuItem(
-                child: Text(value),
+                child: Text(list[value]),
                 value: value,
               );
             },
           ).toList(),
-          onChanged: (value) {}),
+          onChanged: stateSetter),
     );
   }
 }

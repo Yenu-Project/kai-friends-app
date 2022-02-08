@@ -5,66 +5,41 @@ import 'package:kai_friends_app/widgets/input/input_box.dart';
 import 'package:kai_friends_app/widgets/input/input_label.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
+import 'package:kai_friends_app/assets/constants.dart';
 
 enum Gender { man, woman }
 
-class RegisterMyInfoPage extends StatelessWidget {
-  final Gender _gender = Gender.man;
-  final _degree = ['학사과정', '석사과정', '박사과정', '교수'];
-  final _major = [
-    '물리학과',
-    '수리과학과',
-    '화학과',
-    '생명과학과',
-    '기계공학과',
-    '항공우주공학과',
-    '전기및전자공학부',
-    '전산학부',
-    '건설및환경공학과',
-    '바이오및뇌공학과',
-    '산업디자인학과',
-    '산업및시스템공학과',
-    '생명화학공학과',
-    '신소재공학과',
-    '원자력및양자공학과',
-    '기술경영학부',
-    '융합인재학부'
-  ];
-  final _dorm = [
-    '세종관',
-    '아름관',
-    '나들관',
-    '미르관',
-    '사랑관',
-    '신뢰관',
-    '다솜관',
-    '나눔관',
-    '소망관',
-    '지혜관',
-    '희망관',
-    '성실관',
-    '갈릴레이관',
-    '원내아파트',
-    '문지관',
-    '진리관',
-    '여울관',
-    '나래관',
-    '화암관'
-  ];
+class RegisterMyInfoPage extends StatefulWidget {
+  const RegisterMyInfoPage({Key? key}) : super(key: key);
 
-  get _degreeSelected => '학사과정';
+  @override
+  State<RegisterMyInfoPage> createState() => _RegisterMyInfoPageState();
+}
 
-  get _majorSelected => '물리학과';
+class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
+  Gender genderSelected = Gender.man;
+  int degreeSelected = 0;
+  int majorSelected = 0;
+  int dormSelected = 0;
+  Set<String> clubSelected = {};
+  Set<String> classSelected = {};
 
-  get _dormSelected => '사랑관';
+  // input box: use TextEditingController, not updating variable in real time
+  final ageController = TextEditingController();
+  final enterYearController = TextEditingController();
+  final introController = TextEditingController();
 
-  RegisterMyInfoPage({Key? key}) : super(key: key);
+  void genderSetter(val) {
+    setState(() {
+      genderSelected = val as Gender;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopAppBar(
-        title: "회원가입",
+        title: '회원가입',
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
@@ -83,17 +58,22 @@ class RegisterMyInfoPage extends StatelessWidget {
                 const SizedBox(height: 30),
                 const AvatarPreview(),
                 const InputLabel(name: '성별'),
-                GenderSelectBox(gender: _gender),
+                GenderSelectBox(
+                  gender: genderSelected,
+                  stateSetter: genderSetter,
+                ),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: InputBox(
+                        controller: ageController,
                         labelText: '나이',
                         type: TextInputType.number,
                       ),
                     ),
                     Expanded(
                       child: InputBox(
+                        controller: enterYearController,
                         labelText: '학번',
                         type: TextInputType.number,
                       ),
@@ -101,37 +81,66 @@ class RegisterMyInfoPage extends StatelessWidget {
                   ],
                 ),
                 DropdownInputBox(
-                  selected: _degreeSelected,
-                  list: _degree,
+                  selected: degreeSelected,
+                  list: degreeList,
                   labelText: '학위',
+                  stateSetter: (val) {
+                    degreeSelected = val as int;
+                  },
                 ),
                 DropdownInputBox(
-                  selected: _majorSelected,
-                  list: _major,
+                  selected: majorSelected,
+                  list: majorList,
                   labelText: '전공',
+                  stateSetter: (val) {
+                    majorSelected = val as int;
+                  },
                 ),
                 DropdownInputBox(
-                  selected: _dormSelected,
-                  list: _dorm,
+                  selected: dormSelected,
+                  list: dormList,
                   labelText: '기숙사',
+                  stateSetter: (val) {
+                    dormSelected = val as int;
+                  },
                 ),
-                const ChipInputBox(
+                ChipInputBox(
                   id: 'org',
                   labelText: '동아리 / 단체',
+                  stateSetter: (Set<String> val) {
+                    clubSelected = val;
+                  },
                 ),
-                const ChipInputBox(
+                ChipInputBox(
                   id: 'class',
                   labelText: '수업',
+                  stateSetter: (Set<String> val) {
+                    classSelected = val;
+                  },
                 ),
-                const InputBox(
+                InputBox(
+                  controller: introController,
                   labelText: '한 줄 자기소개',
                   type: TextInputType.text,
                 ),
                 const SizedBox(height: 20),
                 IconMainButton(
-                  name: "다음",
+                  name: '다음',
                   icon: Icons.navigate_next,
-                  f: () => {},
+                  f: () {
+                    //TODO: test form serializing
+                    print({
+                      "gender": genderSelected,
+                      "age": ageController.text,
+                      "enterYear": enterYearController.text,
+                      "degree": degreeSelected,
+                      "major": majorSelected,
+                      "dorm": dormSelected,
+                      "clubs": clubSelected,
+                      "classes": classSelected,
+                      "intro": introController.text,
+                    });
+                  },
                 ),
                 const SizedBox(height: 20),
               ],
@@ -170,29 +179,27 @@ class AvatarPreview extends StatelessWidget {
 }
 
 class GenderSelectBox extends StatelessWidget {
-  const GenderSelectBox({
-    Key? key,
-    required Gender gender,
-  })  : _gender = gender,
-        super(key: key);
+  final Gender gender;
+  final void Function(Gender?) stateSetter;
 
-  final Gender _gender;
+  const GenderSelectBox(
+      {Key? key, required this.gender, required this.stateSetter})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // TODO: setstate
         Radio(
           value: Gender.man,
-          groupValue: _gender,
-          onChanged: (gender) => {},
+          groupValue: gender,
+          onChanged: stateSetter,
         ),
         const Text('남성'),
         Radio(
           value: Gender.woman,
-          groupValue: _gender,
-          onChanged: (gender) => {},
+          groupValue: gender,
+          onChanged: stateSetter,
         ),
         const Text('여성'),
       ],
