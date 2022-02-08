@@ -37,7 +37,7 @@ class ColorChip extends StatelessWidget {
                   )
                 : null,
             onDeleted: onDeleted != null
-                ? () => onDeleted!(text ?? 'chip')
+                ? () => onDeleted!(text)
                 : null, // TODO(fix): This code is buggy: chips must be in a set (no duplicates)
           );
   }
