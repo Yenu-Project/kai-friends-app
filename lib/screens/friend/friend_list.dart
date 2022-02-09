@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../widgets/color_chip.dart';
@@ -54,8 +53,13 @@ class _MyAppState extends State<MyApp> {
   List<Friend> friends = [];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     friends = widget.friends;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
