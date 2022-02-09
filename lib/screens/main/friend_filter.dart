@@ -15,21 +15,11 @@ class FriendFilterPage extends StatefulWidget {
 }
 
 class _FriendFilterPageState extends State<FriendFilterPage> {
-  List<String> searchResult = [];
-
-  onSearchTextChanged(String text) {
-    searchResult.clear();
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-
-    filterSearchList.forEach((filter) {
-      if (filter.contains(text)) searchResult.add(filter);
-    });
-
-    setState(() {});
-  }
+  // TODO: use backend API
+  Set<String> searchResult = {};
+  Set<String> addedFilters = {};
+  String searchText = '';
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +37,20 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
                 children: [
                   LabelCheckbox(
                     label: '내 기본 필터 가져오기',
-                    onChanged: (val) {},
+                    initialState: isChecked,
+                    onChanged: onCheckboxChanged,
                   ),
-                  const FilterList(
+                  FilterList(
                     title: '추가된 필터',
-                    filters: defaultFilterList,
+                    filters: addedFilters,
+                    onPressed: onAddedFilterPressed,
                   ),
                 ],
               ),
               FilterList(
                 title: '검색 결과',
                 filters: searchResult,
+                onPressed: onSearchResultPressed,
               ),
             ],
           ),
@@ -65,6 +58,48 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
         bottomNavigationBar: BottomNavBar(),
       ),
     );
+  }
+
+  onSearchTextChanged(String text) {
+    searchText = text;
+    searchResult.clear();
+    if (text.isNotEmpty) {
+      filterSearchList.forEach((filter) {
+        if (filter.contains(text) && !addedFilters.contains(filter)) {
+          searchResult.add(filter);
+        }
+      });
+    }
+    setState(() {});
+  }
+
+  onCheckboxChanged(val) {
+    setState(() {
+      isChecked = val;
+      if (val) {
+        addedFilters.addAll(defaultFilterList.toSet().difference(searchResult));
+      } else {
+        addedFilters.removeAll(defaultFilterList);
+      }
+    });
+  }
+
+  onAddedFilterPressed(filter) {
+    setState(() {
+      addedFilters.remove(filter);
+      isChecked = addedFilters.containsAll(defaultFilterList);
+      if (searchText != '' && filter.contains(searchText)) {
+        searchResult.add(filter);
+      }
+    });
+  }
+
+  onSearchResultPressed(filter) {
+    setState(() {
+      searchResult.remove(filter);
+      addedFilters.add(filter);
+      isChecked = addedFilters.containsAll(defaultFilterList);
+    });
   }
 }
 
@@ -91,7 +126,7 @@ class SearchBar extends StatelessWidget {
           decoration: InputDecoration(
             iconColor: Colors.black,
             prefixIcon: IconButton(
-              onPressed: () {},
+              onPressed: () {}, // TODO: move to prev page
               icon: const Icon(Icons.chevron_left),
             ),
             hintText: '검색',
@@ -103,7 +138,7 @@ class SearchBar extends StatelessWidget {
   }
 }
 
-class LabelCheckbox extends StatefulWidget {
+class LabelCheckbox extends StatelessWidget {
   final String label;
   final bool initialState;
   final Function(bool) onChanged;
@@ -116,19 +151,6 @@ class LabelCheckbox extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LabelCheckboxState createState() => _LabelCheckboxState();
-}
-
-class _LabelCheckboxState extends State<LabelCheckbox> {
-  late bool isChecked;
-
-  @override
-  void initState() {
-    super.initState();
-    isChecked = widget.initialState;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 15.0),
@@ -136,47 +158,38 @@ class _LabelCheckboxState extends State<LabelCheckbox> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Checkbox(
-            value: isChecked,
+            value: initialState,
             onChanged: (bool? value) {
-              setState(() {
-                isChecked = value ?? false;
-              });
-              widget.onChanged(value ?? false);
+              onChanged(value ?? false);
             },
           ),
-          Text(widget.label),
+          Text(label),
         ],
       ),
     );
   }
 }
 
-class FilterList extends StatefulWidget {
+class FilterList extends StatelessWidget {
   final String title;
-  final List<String>? filters;
+  final Set<String> filters;
+  final Function(String) onPressed;
 
   const FilterList({
     Key? key,
     required this.title,
-    this.filters,
+    required this.filters,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
-  State<FilterList> createState() => _FilterListState();
-}
-
-class _FilterListState extends State<FilterList> {
-  List<String> filters = [];
-
-  @override
   Widget build(BuildContext context) {
-    filters = widget.filters ?? [];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title),
+          Text(title),
           const SizedBox(
             height: 10.0,
           ),
@@ -189,6 +202,7 @@ class _FilterListState extends State<FilterList> {
                   .map((filter) => ColorChip(
                         key: Key(filter),
                         text: filter,
+                        onPressed: () => onPressed(filter),
                       ))
                   .toList(),
             ),
