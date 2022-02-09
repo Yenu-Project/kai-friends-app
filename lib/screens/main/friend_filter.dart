@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/assets/constants.dart';
 import 'package:kai_friends_app/widgets/bottom_nav_bar.dart';
 import 'package:kai_friends_app/widgets/color_chip.dart';
 
 void main() {
-  runApp(FriendFilterPage());
+  runApp(const FriendFilterPage());
 }
 
 class FriendFilterPage extends StatefulWidget {
-  FriendFilterPage({Key? key}) : super(key: key);
+  const FriendFilterPage({Key? key}) : super(key: key);
 
   @override
   State<FriendFilterPage> createState() => _FriendFilterPageState();
 }
 
 class _FriendFilterPageState extends State<FriendFilterPage> {
+  List<String> searchResult = [];
+
+  onSearchTextChanged(String text) {
+    searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    filterSearchList.forEach((filter) {
+      if (filter.contains(text)) searchResult.add(filter);
+    });
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +40,9 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SearchBar(),
+              SearchBar(
+                onSearchTextChanged: onSearchTextChanged,
+              ),
               Stack(
                 children: [
                   LabelCheckbox(
@@ -32,23 +51,13 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
                   ),
                   const FilterList(
                     title: '추가된 필터',
-                    filters: [
-                      '경제학개론',
-                      '데이터구조',
-                    ],
+                    filters: defaultFilterList,
                   ),
                 ],
               ),
-              const FilterList(
+              FilterList(
                 title: '검색 결과',
-                filters: [
-                  '학부/전산학과',
-                  '석사/전산학과',
-                  '박사/전산학과',
-                  '전산망개론',
-                  '전산기조직',
-                  '전체/전산학과',
-                ],
+                filters: searchResult,
               ),
             ],
           ),
@@ -60,14 +69,15 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
 }
 
 class SearchBar extends StatelessWidget {
+  final Function(String) onSearchTextChanged;
+
   const SearchBar({
     Key? key,
+    required this.onSearchTextChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final searchController = TextEditingController();
-
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(10.0),
@@ -77,7 +87,7 @@ class SearchBar extends StatelessWidget {
       ),
       child: Center(
         child: TextField(
-          controller: searchController,
+          onChanged: (val) => onSearchTextChanged(val),
           decoration: InputDecoration(
             iconColor: Colors.black,
             prefixIcon: IconButton(
