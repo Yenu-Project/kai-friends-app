@@ -49,8 +49,13 @@ class _UserRecommendationViewState extends State<UserRecommendationView> {
   }
 
   void changeUserProfile() {
+    if (widget.userProfiles.length == 1) {
+      print('End of user list');
+      return;
+    }
+
+    widget.userProfiles.removeFirst();
     setState(() {
-      widget.userProfiles.removeFirst();
       userProfile = widget.userProfiles.first;
     });
   }
@@ -61,7 +66,7 @@ class _UserRecommendationViewState extends State<UserRecommendationView> {
       child: Column(
         children: [
           UserProfileView(userProfile: userProfile),
-          SizedBox(height: 30.0),
+          const SizedBox(height: 30.0),
           FriendDecisionButtons(callback: changeUserProfile),
         ],
       ),
@@ -72,7 +77,7 @@ class _UserRecommendationViewState extends State<UserRecommendationView> {
 class FriendDecisionButtons extends StatelessWidget {
   FriendDecisionButtons({required this.callback});
 
-  Function callback;
+  final Function callback;
 
   @override
   Widget build(BuildContext context) {

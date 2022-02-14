@@ -1,13 +1,13 @@
 class UserProfile {
-  String profileImage;
-  String major;
-  String year;
-  String selfIntroduction;
+  final String profileImage;
+  final String major;
+  final String year;
+  final String selfIntroduction;
 
-  List<String> mentorPreference;
-  List<String> majorPreference;
-  List<String> classPreference;
-  List<String> interestPreference;
+  final List<String> mentorPreference;
+  final List<String> majorPreference;
+  final List<String> classPreference;
+  final List<String> interestPreference;
 
   UserProfile({
     required this.profileImage,
