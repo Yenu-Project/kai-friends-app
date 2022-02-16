@@ -4,42 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:kai_friends_app/screens/main/sample_users.dart';
 import 'package:kai_friends_app/screens/main/user.dart';
 import 'package:kai_friends_app/screens/main/user_profile_view.dart';
-import 'package:kai_friends_app/widgets/bottom_nav_bar.dart';
 
-void main() {
-  runApp(MainScreen());
-}
-
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0.0,
-          actions: const [
-            Text('필터'),
-          ],
-        ),
-        body: UserRecommendationView(),
-        bottomNavigationBar: BottomNavBar(),
-      ),
-    );
-  }
-}
-
-class UserRecommendationView extends StatefulWidget {
+class UserRecommendationScreen extends StatefulWidget {
   Queue<UserProfile> userProfiles =
       Queue<UserProfile>.from(sampleUserProfiles); // TODO: fetch with API
 
   @override
-  _UserRecommendationViewState createState() => _UserRecommendationViewState();
+  _UserRecommendationScreenState createState() =>
+      _UserRecommendationScreenState();
 }
 
-class _UserRecommendationViewState extends State<UserRecommendationView> {
+class _UserRecommendationScreenState extends State<UserRecommendationScreen> {
   late UserProfile userProfile;
 
   @override
@@ -65,6 +40,7 @@ class _UserRecommendationViewState extends State<UserRecommendationView> {
     return SafeArea(
       child: Column(
         children: [
+          const SizedBox(height: 60.0), // TODO: add filter button
           UserProfileView(userProfile: userProfile),
           const SizedBox(height: 30.0),
           FriendDecisionButtons(callback: changeUserProfile),
