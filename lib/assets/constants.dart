@@ -59,3 +59,21 @@ const testSearchList = [
   "CS Special Seminar",
   "PH110",
 ];
+
+const filterSearchSet = {
+  '학부/전산학과',
+  '석사/전산학과',
+  '박사/전산학과',
+  '전산망개론',
+  '전산기조직',
+  '전체/전산학과',
+  '정보보호개론',
+  '운영체제 및 실험',
+  '경제학개론',
+  '데이터구조',
+};
+
+const defaultFilterSet = {
+  '경제학개론',
+  '데이터구조',
+};
