@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kai_friends_app/screens/main/friend_recommendation.dart';
+import 'package:kai_friends_app/screens/friend/friend_list.dart';
 
 void main() {
   runApp(KaiFriendsApp());
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _widgetOptions = <Widget>[
     UserRecommendationScreen(),
     Text('받은 신청', style: optionStyle), // TODO: replace with widget
-    Text('친구 목록', style: optionStyle), // TODO: replace with widget
+    FriendListScreen(),
     Text('설정', style: optionStyle), // TODO: replace with widget
   ];
 
