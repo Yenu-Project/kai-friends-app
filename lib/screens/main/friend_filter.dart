@@ -77,9 +77,11 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
     setState(() {
       isChecked = val;
       if (val) {
-        addedFilters.addAll(defaultFilterList.toSet().difference(searchResult));
+        addedFilters.addAll(defaultFilterList.toSet());
+        searchResult.removeAll(defaultFilterList.toSet());
       } else {
         addedFilters.removeAll(defaultFilterList);
+        searchResult.addAll(defaultFilterList);
       }
     });
   }
