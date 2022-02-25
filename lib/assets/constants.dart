@@ -60,7 +60,7 @@ const testSearchList = [
   "PH110",
 ];
 
-const filterSearchList = [
+const filterSearchSet = {
   '학부/전산학과',
   '석사/전산학과',
   '박사/전산학과',
@@ -71,9 +71,9 @@ const filterSearchList = [
   '운영체제 및 실험',
   '경제학개론',
   '데이터구조',
-];
+};
 
-const defaultFilterList = [
+const defaultFilterSet = {
   '경제학개론',
   '데이터구조',
-];
+};

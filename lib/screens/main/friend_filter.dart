@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kai_friends_app/assets/constants.dart';
-import 'package:kai_friends_app/widgets/bottom_nav_bar.dart';
 import 'package:kai_friends_app/widgets/color_chip.dart';
 
-void main() {
-  runApp(const FriendFilterPage());
-}
-
-class FriendFilterPage extends StatefulWidget {
-  const FriendFilterPage({Key? key}) : super(key: key);
+class FriendFilterScreen extends StatefulWidget {
+  const FriendFilterScreen({Key? key}) : super(key: key);
 
   @override
-  State<FriendFilterPage> createState() => _FriendFilterPageState();
+  State<FriendFilterScreen> createState() => _FriendFilterScreenState();
 }
 
-class _FriendFilterPageState extends State<FriendFilterPage> {
+class _FriendFilterScreenState extends State<FriendFilterScreen> {
   // TODO: use backend API
   Set<String> searchResult = {};
   Set<String> addedFilters = {};
@@ -23,39 +18,36 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchBar(
-                onSearchTextChanged: onSearchTextChanged,
-              ),
-              Stack(
-                children: [
-                  LabelCheckbox(
-                    label: '내 기본 필터 가져오기',
-                    initialState: isChecked,
-                    onChanged: onCheckboxChanged,
-                  ),
-                  FilterList(
-                    title: '추가된 필터',
-                    filters: addedFilters,
-                    onPressed: onAddedFilterPressed,
-                  ),
-                ],
-              ),
-              FilterList(
-                title: '검색 결과',
-                filters: searchResult,
-                onPressed: onSearchResultPressed,
-              ),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SearchBar(
+              onSearchTextChanged: onSearchTextChanged,
+            ),
+            Stack(
+              children: [
+                LabelCheckbox(
+                  label: '내 기본 필터 가져오기',
+                  initialState: isChecked,
+                  onChanged: onCheckboxChanged,
+                ),
+                FilterList(
+                  title: '추가된 필터',
+                  filters: addedFilters,
+                  onPressed: onAddedFilterPressed,
+                ),
+              ],
+            ),
+            FilterList(
+              title: '검색 결과',
+              filters: searchResult,
+              onPressed: onSearchResultPressed,
+            ),
+          ],
         ),
-        bottomNavigationBar: BottomNavBar(),
       ),
     );
   }
@@ -63,25 +55,27 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
   onSearchTextChanged(String text) {
     searchText = text;
     searchResult.clear();
-    if (text.isNotEmpty) {
-      filterSearchList.forEach((filter) {
-        if (filter.contains(text) && !addedFilters.contains(filter)) {
-          searchResult.add(filter);
-        }
-      });
-    }
-    setState(() {});
+    if (text.isEmpty) return;
+
+    Set<String> newFilters =
+        filterSearchSet.where((filter) => filter.contains(text)).toSet();
+    newFilters.difference(addedFilters);
+
+    setState(() {
+      searchResult.addAll(newFilters);
+    });
   }
 
   onCheckboxChanged(val) {
     setState(() {
       isChecked = val;
       if (val) {
-        addedFilters.addAll(defaultFilterList.toSet());
-        searchResult.removeAll(defaultFilterList.toSet());
+        addedFilters.addAll(defaultFilterSet);
+        searchResult.removeAll(defaultFilterSet);
       } else {
-        addedFilters.removeAll(defaultFilterList);
-        searchResult.addAll(defaultFilterList);
+        addedFilters.removeAll(defaultFilterSet);
+        searchResult.addAll(
+            defaultFilterSet.where((element) => element.contains(searchText)));
       }
     });
   }
@@ -89,8 +83,8 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
   onAddedFilterPressed(filter) {
     setState(() {
       addedFilters.remove(filter);
-      isChecked = addedFilters.containsAll(defaultFilterList);
-      if (searchText != '' && filter.contains(searchText)) {
+      isChecked = addedFilters.containsAll(defaultFilterSet);
+      if (searchText.isNotEmpty && filter.contains(searchText)) {
         searchResult.add(filter);
       }
     });
@@ -100,7 +94,7 @@ class _FriendFilterPageState extends State<FriendFilterPage> {
     setState(() {
       searchResult.remove(filter);
       addedFilters.add(filter);
-      isChecked = addedFilters.containsAll(defaultFilterList);
+      isChecked = addedFilters.containsAll(defaultFilterSet);
     });
   }
 }
