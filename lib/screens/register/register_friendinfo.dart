@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/screens/register/register_confirm.dart';
 import 'package:kai_friends_app/widgets/input/chip_input_box.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 import 'package:kai_friends_app/widgets/top_app_bar.dart';
 
 class RegisterFriendInfoPage extends StatefulWidget {
-  const RegisterFriendInfoPage({Key? key}) : super(key: key);
+  final Map<String, dynamic> myInfo;
+
+  const RegisterFriendInfoPage({Key? key, required this.myInfo})
+      : super(key: key);
 
   @override
   State<RegisterFriendInfoPage> createState() => _RegisterFriendInfoPageState();
@@ -49,7 +53,7 @@ class _RegisterFriendInfoPageState extends State<RegisterFriendInfoPage> {
                 ChipInputBox(
                   id: 'friend_major',
                   labelText: '친구의 과정 / 학과',
-                  stateSetter: (Set<String> val){
+                  stateSetter: (Set<String> val) {
                     friendMajorSelected = val;
                   },
                 ),
@@ -61,7 +65,7 @@ class _RegisterFriendInfoPageState extends State<RegisterFriendInfoPage> {
                 ChipInputBox(
                   id: 'friend_class',
                   labelText: '친구의 수업',
-                  stateSetter: (Set<String> val){
+                  stateSetter: (Set<String> val) {
                     friendClassSelected = val;
                   },
                 ),
@@ -73,7 +77,7 @@ class _RegisterFriendInfoPageState extends State<RegisterFriendInfoPage> {
                 ChipInputBox(
                   id: 'friend_interest',
                   labelText: '친구의 관심분야',
-                  stateSetter: (Set<String> val){
+                  stateSetter: (Set<String> val) {
                     friendInterestSelected = val;
                   },
                 ),
@@ -85,7 +89,7 @@ class _RegisterFriendInfoPageState extends State<RegisterFriendInfoPage> {
                 ChipInputBox(
                   id: 'friend_mentor',
                   labelText: '분야',
-                  stateSetter: (Set<String> val){
+                  stateSetter: (Set<String> val) {
                     friendMentorSelected = val;
                   },
                 ),
@@ -97,7 +101,7 @@ class _RegisterFriendInfoPageState extends State<RegisterFriendInfoPage> {
                 ChipInputBox(
                   id: 'friend_mentee',
                   labelText: '분야',
-                  stateSetter: (Set<String> val){
+                  stateSetter: (Set<String> val) {
                     friendMenteeSelected = val;
                   },
                 ),
@@ -107,19 +111,29 @@ class _RegisterFriendInfoPageState extends State<RegisterFriendInfoPage> {
                   children: [
                     IconMainButton(
                       name: '수정',
-                      f: () => {},
+                      f: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icons.navigate_before,
                     ),
                     IconMainButton(
                       name: '미리보기',
                       f: () {
-                        print({
+                        Map<String, Set<String>> friendInfo = {
                           "major": friendMajorSelected,
                           "class": friendClassSelected,
                           "interest": friendInterestSelected,
                           "mentor": friendMentorSelected,
                           "mentee": friendMenteeSelected,
-                        });
+                        };
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterConfirm(
+                                    myInfo: widget.myInfo,
+                                    friendInfo: friendInfo,
+                                  )),
+                        );
                       },
                       icon: Icons.navigate_next,
                     ),

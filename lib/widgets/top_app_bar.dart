@@ -22,6 +22,7 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: actions,
       elevation: 0,
       backgroundColor: Colors.transparent,
+      automaticallyImplyLeading: false,
     );
   }
 

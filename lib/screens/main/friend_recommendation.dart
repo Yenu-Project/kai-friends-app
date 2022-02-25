@@ -38,13 +38,15 @@ class _UserRecommendationScreenState extends State<UserRecommendationScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          const SizedBox(height: 60.0), // TODO: add filter button
-          UserProfileView(userProfile: userProfile),
-          const SizedBox(height: 30.0),
-          FriendDecisionButtons(callback: changeUserProfile),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 60.0), // TODO: add filter button
+            UserProfileView(userProfile: userProfile),
+            const SizedBox(height: 30.0),
+            FriendDecisionButtons(callback: changeUserProfile),
+          ],
+        ),
       ),
     );
   }
