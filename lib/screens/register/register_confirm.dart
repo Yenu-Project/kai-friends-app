@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kai_friends_app/assets/constants.dart';
 import 'package:kai_friends_app/main.dart';
-import 'package:kai_friends_app/screens/main/sample_users.dart';
-import 'package:kai_friends_app/screens/main/user.dart';
+import 'package:kai_friends_app/models/sample/sample_users.dart';
+import 'package:kai_friends_app/models/user.dart';
 import 'package:kai_friends_app/screens/main/user_profile_view.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 
@@ -56,7 +56,8 @@ class RegisterConfirm extends StatelessWidget {
                       print(friendInfo);
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => KaiFriendsApp()),
+                          MaterialPageRoute(
+                              builder: (context) => KaiFriendsApp()),
                           (Route<dynamic> route) => false);
                     },
                     icon: Icons.navigate_next,

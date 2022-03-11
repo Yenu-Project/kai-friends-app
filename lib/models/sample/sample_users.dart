@@ -1,4 +1,4 @@
-import 'package:kai_friends_app/screens/main/user.dart';
+import 'package:kai_friends_app/models/user.dart';
 
 List<UserProfile> sampleUserProfiles = [
   UserProfile(
@@ -10,6 +10,7 @@ List<UserProfile> sampleUserProfiles = [
     majorPreference: ['전산과'],
     classPreference: ['데이터구조', '이산구조'],
     interestPreference: ['방탄소년단', '세븐틴'],
+    mainPreference: ['전산과', '방탄소년단'],
   ),
   UserProfile(
     profileImage: 'images/profile_picture.png',
@@ -20,6 +21,7 @@ List<UserProfile> sampleUserProfiles = [
     majorPreference: ['신소재과'],
     classPreference: ['신소재개론', '소재열역학'],
     interestPreference: ['랩인턴', '맛집'],
+    mainPreference: ['신소재과', '소재열역학', '랩인턴', '맛집'],
   ),
   UserProfile(
     profileImage: 'images/profile_picture.png',
@@ -30,5 +32,6 @@ List<UserProfile> sampleUserProfiles = [
     majorPreference: ['기계과'],
     classPreference: ['시모제', '동역학'],
     interestPreference: ['유학', '아이브'],
+    mainPreference: ['기계과', '유학', '아이브'],
   ),
 ];

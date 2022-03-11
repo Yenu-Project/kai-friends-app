@@ -8,6 +8,7 @@ class UserProfile {
   final List<String> majorPreference;
   final List<String> classPreference;
   final List<String> interestPreference;
+  final List<String> mainPreference;
 
   UserProfile({
     required this.profileImage,
@@ -18,5 +19,6 @@ class UserProfile {
     required this.majorPreference,
     required this.classPreference,
     required this.interestPreference,
+    required this.mainPreference,
   });
 }

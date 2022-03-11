@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:kai_friends_app/screens/main/sample_users.dart';
-import 'package:kai_friends_app/screens/main/user.dart';
+import 'package:kai_friends_app/models/sample/sample_users.dart';
+import 'package:kai_friends_app/models/user.dart';
 import 'package:kai_friends_app/screens/main/user_profile_view.dart';
 
 class UserRecommendationScreen extends StatefulWidget {
