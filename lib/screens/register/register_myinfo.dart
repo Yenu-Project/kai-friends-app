@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/screens/register/register_friendinfo.dart';
 import 'package:kai_friends_app/widgets/input/chip_input_box.dart';
 import 'package:kai_friends_app/widgets/input/dropdown_input_box.dart';
 import 'package:kai_friends_app/widgets/input/input_box.dart';
@@ -128,8 +129,7 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                   name: '다음',
                   icon: Icons.navigate_next,
                   f: () {
-                    //TODO: test form serializing
-                    print({
+                    Map<String, dynamic> myInfo = {
                       "gender": genderSelected,
                       "age": ageController.text,
                       "enterYear": enterYearController.text,
@@ -139,7 +139,11 @@ class _RegisterMyInfoPageState extends State<RegisterMyInfoPage> {
                       "clubs": clubSelected,
                       "classes": classSelected,
                       "intro": introController.text,
-                    });
+                    };
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterFriendInfoPage(myInfo: myInfo)),
+                    );
                   },
                 ),
                 const SizedBox(height: 20),

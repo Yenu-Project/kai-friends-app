@@ -135,13 +135,16 @@ class FriendPreference extends StatelessWidget {
         const SizedBox(
           width: 10.0,
         ),
-        Wrap(
-          alignment: WrapAlignment.start,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: 8.0,
-          runSpacing: 4.0,
-          children: <Widget>[for (String p in preference) ColorChip(text: p)],
-        )
+        Container(
+          width: 200,
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8.0,
+            runSpacing: 4.0,
+            children: <Widget>[for (String p in preference) ColorChip(text: p)],
+          ),
+        ),
       ],
     );
   }
