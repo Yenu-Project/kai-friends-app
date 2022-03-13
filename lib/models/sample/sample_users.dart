@@ -2,6 +2,7 @@ import 'package:kai_friends_app/models/user.dart';
 
 List<UserProfile> sampleUserProfiles = [
   UserProfile(
+    id: 1,
     profileImage: 'images/profile_picture.png',
     major: '전산과 학사',
     year: '19',
@@ -13,6 +14,7 @@ List<UserProfile> sampleUserProfiles = [
     mainPreference: ['전산과', '방탄소년단'],
   ),
   UserProfile(
+    id: 2,
     profileImage: 'images/profile_picture.png',
     major: '신소재과 학사',
     year: '20',
@@ -24,6 +26,7 @@ List<UserProfile> sampleUserProfiles = [
     mainPreference: ['신소재과', '소재열역학', '랩인턴', '맛집'],
   ),
   UserProfile(
+    id: 3,
     profileImage: 'images/profile_picture.png',
     major: '기계과 석사',
     year: '18',

@@ -23,6 +23,7 @@ class RegisterConfirm extends StatelessWidget {
               const SizedBox(height: 60.0),
               UserProfileView(
                 userProfile: UserProfile(
+                  id: -1,
                   profileImage: 'images/profile_picture.png',
                   // TODO: receive profile image from register_myinfo
                   major: majorList[myInfo["major"]],
@@ -36,6 +37,7 @@ class RegisterConfirm extends StatelessWidget {
                   majorPreference: friendInfo["major"]!.toList(),
                   classPreference: friendInfo["class"]!.toList(),
                   interestPreference: friendInfo["interest"]!.toList(),
+                  mainPreference: [],
                 ),
               ),
               const SizedBox(height: 30.0),

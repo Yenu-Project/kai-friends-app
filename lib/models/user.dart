@@ -1,4 +1,5 @@
 class UserProfile {
+  final int id;
   final String profileImage;
   final String major;
   final String year;
@@ -11,6 +12,7 @@ class UserProfile {
   final List<String> mainPreference;
 
   UserProfile({
+    required this.id,
     required this.profileImage,
     required this.major,
     required this.year,

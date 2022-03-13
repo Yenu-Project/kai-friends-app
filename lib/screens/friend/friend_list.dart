@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:kai_friends_app/models/sample/sample_users.dart';
@@ -65,7 +64,7 @@ class _FriendListScreenState extends State<FriendListScreen> {
           itemCount: widget.friends.length,
           itemBuilder: (context, index) {
             return FriendListTile(
-              key: Key(friends[index].selfIntroduction),
+              key: Key(friends[index].id.toString()),
               friend: friends[index],
               onPressedDeletion: () {
                 setState(() {
