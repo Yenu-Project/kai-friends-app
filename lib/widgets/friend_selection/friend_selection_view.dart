@@ -49,7 +49,7 @@ class _FriendSelectionViewState extends State<FriendSelectionView> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 60.0),
+            const SizedBox(height: 4.0),
             UserProfileView(userProfile: userProfile),
             const SizedBox(height: 30.0),
             FriendDecisionButtons(callback: changeUserProfile),
