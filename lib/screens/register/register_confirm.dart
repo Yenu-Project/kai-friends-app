@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kai_friends_app/assets/constants.dart';
 import 'package:kai_friends_app/main.dart';
-import 'package:kai_friends_app/models/sample/sample_users.dart';
 import 'package:kai_friends_app/models/user.dart';
-import 'package:kai_friends_app/screens/main/user_profile_view.dart';
+import 'package:kai_friends_app/widgets/friend_selection/user_profile_view.dart';
 import 'package:kai_friends_app/widgets/main_button.dart';
 
 class RegisterConfirm extends StatelessWidget {
