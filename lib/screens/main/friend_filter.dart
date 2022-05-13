@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kai_friends_app/assets/constants.dart';
 import 'package:kai_friends_app/widgets/color_chip.dart';
+import 'package:kai_friends_app/widgets/main_button.dart';
 
 class FriendFilterScreen extends StatefulWidget {
   const FriendFilterScreen({Key? key}) : super(key: key);
@@ -45,6 +46,17 @@ class _FriendFilterScreenState extends State<FriendFilterScreen> {
               title: '검색 결과',
               filters: searchResult,
               onPressed: onSearchResultPressed,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MainButton(
+                    name: '완료',
+                    f: () {
+                      // TODO: addedFilters를 backend로 전송
+                      Navigator.pop(context);
+                    }),
+              ],
             ),
           ],
         ),
@@ -122,7 +134,9 @@ class SearchBar extends StatelessWidget {
           decoration: InputDecoration(
             iconColor: Colors.black,
             prefixIcon: IconButton(
-              onPressed: () {}, // TODO: move to prev page
+              onPressed: () {
+                Navigator.pop(context);
+              }, // TODO: move to prev page
               icon: const Icon(Icons.chevron_left),
             ),
             hintText: '검색',
