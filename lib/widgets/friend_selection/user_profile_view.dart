@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kai_friends_app/screens/main/user.dart';
+import 'package:kai_friends_app/models/user.dart';
 import 'package:kai_friends_app/widgets/color_chip.dart';
 
 class UserProfileView extends StatelessWidget {

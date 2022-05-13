@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:kai_friends_app/models/sample/sample_users.dart';
+import 'package:kai_friends_app/models/user.dart';
 import '../../widgets/color_chip.dart';
 import '../../widgets/top_app_bar.dart';
 
-class Friend {
-  String name;
-  String introduction;
-  List<String> preferences;
-
-  Friend(this.name, this.introduction, this.preferences);
-}
-
 class FriendListScreen extends StatefulWidget {
-  final List<Friend> friends = List<Friend>.from([
-    Friend('name1', 'introduction1', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name2', 'introduction2', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name3', 'introduction3', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name4', 'introduction4', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name5', 'introduction5', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name6', 'introduction6', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name7', 'introduction7', ['prefer', 'prefer', 'prefer', 'prefer']),
-    Friend('name8', 'introduction8', ['prefer', 'prefer', 'prefer', 'prefer']),
-  ]);
+  final List<UserProfile> friends = List<UserProfile>.from(sampleUserProfiles);
 
   FriendListScreen({
     Key? key,
@@ -34,7 +19,7 @@ class FriendListScreen extends StatefulWidget {
 class _FriendListScreenState extends State<FriendListScreen> {
   String dropdownValue = '정렬';
   List<String> sortingType = ['정렬', '추가순', '학과순', '학번순'];
-  List<Friend> friends = [];
+  List<UserProfile> friends = [];
 
   @override
   void initState() {
@@ -79,7 +64,7 @@ class _FriendListScreenState extends State<FriendListScreen> {
           itemCount: widget.friends.length,
           itemBuilder: (context, index) {
             return FriendListTile(
-              key: Key(friends[index].name),
+              key: Key(friends[index].id.toString()),
               friend: friends[index],
               onPressedDeletion: () {
                 setState(() {
@@ -96,7 +81,7 @@ class _FriendListScreenState extends State<FriendListScreen> {
 }
 
 class FriendListTile extends StatelessWidget {
-  final Friend friend;
+  final UserProfile friend;
   final Function onPressedDeletion;
   final Function onPressedMove;
 
@@ -142,25 +127,33 @@ class FriendListTile extends StatelessWidget {
       ),
       child: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ListTile(
               leading: const CircleAvatar(
                 radius: 20.0,
               ),
-              title: Text(friend.name),
-              subtitle: Text(friend.introduction),
+              title: Text('${friend.major} \'${friend.year}'),
+              subtitle: Text(friend.selfIntroduction),
               trailing: const Icon(
                 Icons.question_answer_rounded,
               ),
             ),
-            Wrap(
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children: friend.preferences
-                  .map((e) => ColorChip(
-                        text: e,
-                      ))
-                  .toList(),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 80.0,
+                ),
+                Wrap(
+                  spacing: 6.0,
+                  runSpacing: 6.0,
+                  children: friend.mainPreference
+                      .map((e) => ColorChip(
+                            text: e,
+                          ))
+                      .toList(),
+                ),
+              ],
             ),
             const SizedBox(
               height: 10.0,
