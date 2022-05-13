@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kai_friends_app/screens/my_info/my_info.dart';
 import 'package:kai_friends_app/screens/login/login.dart';
-import 'package:kai_friends_app/screens/main/friend_recommendation.dart';
 import 'package:kai_friends_app/screens/friend/friend_list.dart';
 import 'package:kai_friends_app/screens/main/friend_recommendation.dart';
 import 'package:kai_friends_app/screens/received_requests/received_requests.dart';
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
     UserRecommendationScreen(),
     ReceivedRequestsScreen(),
     FriendListScreen(),
-    Text('설정', style: optionStyle), // TODO: replace with widget
+    MyInfoScreen(),
   ];
 
   void _onItemTapped(int index) {
